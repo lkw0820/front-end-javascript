@@ -1,0 +1,39 @@
+
+<!DOCTYPE HTML>
+<html>
+    <script>
+        function addRow(){
+            const table = document.getElementById('grade');
+            const totalRowCnt = table.rows.length;
+            const newRow = table.insertRow(totalRowCnt-1);
+            const newCell1 = newRow.insertCell(0);
+            const newCell2 = newRow.insertCell(1);
+            const newCell3 = newRow.insertCell(2);
+            const newCell4 = newRow.insertCell(3);
+            const newCell5 = newRow.insertCell(4);
+            const newCell6 = newRow.insertCell(5);
+            const newCell7 = newRow.insertCell(6);
+            const newCell8 = newRow.insertCell(7);
+            const newCell9 = newRow.insertCell(8);
+            const newCell10 = newRow.insertCell(9);
+            const newCell11 = newRow.insertCell(10);
+
+            newCell1
+        }
+    </script>
+
+<body>
+    <input type="button" value="추가" onclick="addRow()">
+    <input type="button" value="삭제" onclick="deleteRow(-1)">
+    <input type="button" value="저장">
+    <table id='grade' border="1">
+        <tr>
+            <th>이수</th><th>필수</th><th>과목명</th><th>학점</th><th>출석점수</th><th>과제점수</th><th>중간고사</th><th>기말고사</th><th>총점</th><th>평균</th><th>성적</th>
+        </tr>
+        <tr>
+            <td colspan="3">합계</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+    </table>
+</body>
+
+</html>
