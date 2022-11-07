@@ -1,0 +1,39 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head><script src="C:\Users\이기원\Desktop\jquery-3.6.1.min.js"></script></head>
+    <script>
+        $('#btn-add-row').click(function() {
+            $('#grade > tbody:last').append("<tr><td>이수</td>"+
+                "<td>필수</td>"+
+                "<td>과목명</td>"+
+                "<td>학점</td>"+
+                "<td>출석점수</td>"+
+                "<td>과제 점수</td>"+
+                "<td>중간고사</td>"+
+                "<td>기말고사</td>"+
+                "<td>총점</td>"+
+                "<td>평균</td>"+
+                "<td>성적</td></tr>");
+        });
+    </script>
+
+<body>
+    <button id="btn-add-row">추가</button>
+    <button id="btn-delete-row">삭제</button>
+    <button id="btn-save">저장</button>
+    <table id='grade' border="1">
+        <thead>
+            <tr>
+                <th>이수</th><th>필수</th><th>과목명</th><th>학점</th><th>출석점수</th><th>과제점수</th><th>중간고사</th><th>기말고사</th><th>총점</th><th>평균</th><th>성적</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3">합계</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
