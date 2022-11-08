@@ -18,24 +18,47 @@
             const newCell10 = newRow.insertCell(9);
             const newCell11 = newRow.insertCell(10);
 
-            newCell1.innerHTML="<td>이수</<td>";
-            newCell2.innerHTML="<td>필수</<td>";
-            newCell3.innerHTML="<td>과목명</<td>";
-            newCell4.innerHTML="<td>학점</<td>";
-            newCell5.innerHTML="<td>출석점수</<td>";
-            newCell6.innerHTML="<td>과제점수</<td>";
-            newCell7.innerHTML="<td>중간고사</<td>";
-            newCell8.innerHTML="<td>기말고사</<td>";
-            newCell9.innerHTML="<td>총점</<td>";                    
-            newCell10.innerHTML="<td>평균</<td>";
-            newCell11.innerHTML="<td>성적</<td>";
+            newCell1.innerHTML=
+            "<td>"+
+                "<select name = 'combo_box1'>"+
+                    "<option value='0'>전공</option>"+
+                    "<option value='1'>교양</option>"+
+                "</select>"+
+            "</td>";
+            newCell2.innerHTML=
+            "<td>"+
+                "<select name = 'combo_box2'>"+
+                    "<option value='0'>필수</option>"+
+                    "<option value='1'>선택</option>"+
+                "</select>"+
+            "</td>";
+            newCell3.innerHTML="<td><input type='text' id='subject'></td>";
+            newCell4.innerHTML="<td><input type='number' min='1' max'3' id='credit'></td>";
+            newCell5.innerHTML="<td><input type='number' min='1' max'100' id='attendance'></td>";
+            newCell6.innerHTML="<td><input type='number' min='1' max'100' id='task'></td>";
+            newCell7.innerHTML="<td><input type='number' min='1' max'100' id='middle'></td>";
+            newCell8.innerHTML="<td><input type='number' min='1' max'100' id='final'></td>";
+            newCell9.innerHTML="<td>0</td>";                    
+            newCell10.innerHTML="<td>0</td>";
+            newCell11.innerHTML="<td>0</td>";
+
+            const subject = document.getElementById("subject");
+            const credit = document.getElementById("credit");
+            const attendance = document.getElementById("attendance");
+            const task = document.getElementById("task");
+            const middle = document.getElementById("middle");
+            const final = document.getElementById("final");
+        }
+
+        function result(){
+
         }
     </script>
 
 <body>
     <input type="button" value="추가" onclick="addRow()">
     <input type="button" value="삭제" onclick="deleteRow(-1)">
-    <input type="button" value="저장">
+    <input type="button" value="저장" onClick="result()">
     <table id='grade' border="1">
         <tr>
             <th>이수</th><th>필수</th><th>과목명</th><th>학점</th><th>출석점수</th><th>과제점수</th><th>중간고사</th><th>기말고사</th><th>총점</th><th>평균</th><th>성적</th>
