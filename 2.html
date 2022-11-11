@@ -1,39 +1,217 @@
 
 <!DOCTYPE HTML>
 <html>
-    <head><script src="C:\Users\이기원\Desktop\jquery-3.6.1.min.js"></script></head>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-        $('#btn-add-row').click(function() {
-            $('#grade > tbody:last').append("<tr><td>이수</td>"+
-                "<td>필수</td>"+
-                "<td>과목명</td>"+
-                "<td>학점</td>"+
-                "<td>출석점수</td>"+
-                "<td>과제 점수</td>"+
-                "<td>중간고사</td>"+
-                "<td>기말고사</td>"+
-                "<td>총점</td>"+
-                "<td>평균</td>"+
-                "<td>성적</td></tr>");
-        });
-    </script>
 
-<body>
-    <button id="btn-add-row">추가</button>
-    <button id="btn-delete-row">삭제</button>
-    <button id="btn-save">저장</button>
-    <table id='grade' border="1">
-        <thead>
-            <tr>
-                <th>이수</th><th>필수</th><th>과목명</th><th>학점</th><th>출석점수</th><th>과제점수</th><th>중간고사</th><th>기말고사</th><th>총점</th><th>평균</th><th>성적</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="3">합계</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-        </tbody>
-    </table>
-</body>
+        $('#userList').html('<colgroup>'+
+              '<col width = "7%">'+
+              '<col width = "7%">'+
+              '<col width = "18%">'+
+              '<col width = "7%">'+
+              '<col width = "10%">'+
+              '<col width = "10%">'+
+              '<col width = "10%">'+
+              '<col width = "10%">'+
+              '<col width = "7%">'+
+              '<col width = "7%">'+
+              '<col width = "7%">');
+        var baseCamp = 0;
+
+// 추가btn 이벤트
+        const userAdd = ()=> {  
+
+        var trCnt = document.getElementsByTagName('tr').length;
+        var inner = "";
+        console.log(trCnt)
+        if(baseCamp != 0){
+        trCnt = baseCamp;
+        } 
+
+            //inner += '<tr id = "no'+trCnt+'">';
+            inner += '<tr align ="center">';
+            inner += '    <td>'+ 
+                "<select name = 'combo_box1' style='width:70px'>"+
+                    "<option value='0'>전공</option>"+
+                    "<option value='1'>교양</option>"+
+                "</select>"+'</td>';
+            inner += '    <td>'+
+                '<select name = "combo_box2" style="width:70px">'+
+                    '<option value="0">필수</option>'+
+                    '<option value="1">선택</option>'+
+                '</select></td>';
+            inner += '    <td><input type="text" id="subject" style="width:170px"></td>';
+            inner += '    <td><input type="number" min="1" max"3" id="credit" style="width:70px"></td>';
+            inner += '    <td><input type="number" min="1" max"100" id="attendance" style="width:100px"></td>';
+            inner += '    <td><input type="number" min="1" max"100" id="task" style="width:100px"></td>';
+            inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
+            inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
+            inner += '    <td><div id="total" style="width:70px"></div></td>';
+            inner += '    <td><div id="total" style="width:70px"></div></td>';
+            inner += '    <td><div id="total" style="width:70px"></div></td>';
+            inner += '</tr>';
+        
+
+        $('#tbHead').after(inner); // 헤더 아래 추가
+
+        }
+
+/*  @description 사용자 정보 입력 row remove */
+function onClickCancle(trCnt){
+  var row = document.querySelectorAll('.updateRow');
+  $("#no"+trCnt).remove();
+  
+  if(trCnt == 11){
+    $('#no1').show();
+  }
+  if(row.length > 0){
+    $('.updateRow').show();
+    $('tr').removeClass('updateRow');
+  }
+}
+
+/*
+* @description 사용자 정보 수정
+*/
+function onClickUpdate(){ 
+  
+  var targetBtn = event.target;
+  var parentTr = targetBtn.parentNode.parentNode;
+  var tdNode = parentTr.childNodes;
+  var tdArr = new Array();
+
+  for(var i = 0; i < tdNode.length; i++){
+    tdArr.push(tdNode[i].textContent);    
+  }
+  
+  var row = document.querySelectorAll('.updateRow')
+  if(row.length == 0){
+    parentTr.className = "updateRow";
+    $('.updateRow').hide();
+
+    baseCamp = tdArr[1];
+    userAdd();
+    
+  }else{
+    alert("수정 중인 사용자 정보가 있습니다.")
+  }
+}
+    </script>
+    <head>
+        <style>
+            .table_layout {width:100%;}
+            table{width:100%;}
+            table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table tr th {
+    background-color: rgb(221, 221, 221);
+    color: rgb(73, 73, 73);
+    height: 38px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #bdbdbd;
+}
+table tr td {
+    font-size: 14px;
+    border: 1px solid #dddddd;
+    height: 46px;
+    text-align: center;
+    color: rgb(95, 95, 95);
+    background: #fff;
+    font-size: 15px;
+    font-family: "Nanum";
+    font-weight: 600;
+}
+table tr th>button.add {
+    background: rgb(97, 97, 97);
+    color: #fff;
+    width: 50px;
+    height: 25px;
+    padding-top: 3px;
+}
+table tr td>button {
+    background: none;
+    font-weight: 600;
+    color: #272727;
+    border : 0px
+}
+button {
+    border: none;
+    outline: 0;
+}
+
+#userList input[type="text"], 
+#userList input[type="text"]:focus{
+      border : 1px solid #e7e7e7; 
+      text-align : center;
+      color: rgb(95, 95, 95);
+      font-family: "Nanum";
+      font-size : 15px;
+      font-weight : 600;
+      height : 30px;  
+      width : 85%;
+}
+#userList select, #userList select:focus{
+      border : 1px solid #e7e7e7; 
+      height : 30px;
+      width : 169px;
+      text-align : center;
+      color: rgb(95, 95, 95);
+      font-family: "Nanum";
+      font-size : 15px;
+      font-weight : 600;
+}  
+        </style>
+    </head>
+    <body>
+        <input type="button" value="추가" onClick="userAdd()">
+        <table id="userList">
+            <colgroup>
+              <col width = "7%">
+              <col width = "7%">
+              <col width = "18%">
+              <col width = "7%">
+              <col width = "10%">
+              <col width = "10%">
+              <col width = "10%">
+              <col width = "10%">
+              <col width = "7%">
+              <col width = "7%">
+              <col width = "7%">
+            </colgroup>
+            <thead id ="userThead">
+              <tr id = "tbHead">
+                <th>이수</th>
+                <th>필수</th>
+                <th>과목명</th>
+                <th>학점</th>
+                <th>출석점수</th>
+                <th>과제점수</th>
+                <th>중간고사</th>
+                <th>기말고사</th>
+                <th>총점</th>
+                <th>평균</th>
+                <th>성적</th>
+              </tr>
+            </thead>
+            <tbody id = "userTbody">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">합계</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+          </table>
+    </body>
 
 </html>
