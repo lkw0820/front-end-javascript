@@ -1,8 +1,8 @@
 
 <!DOCTYPE HTML>
 <html>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script>
 
         $('#userList').html('<colgroup>'+
               '<col width = "7%">'+
@@ -47,8 +47,8 @@
             inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
             inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
             inner += '    <td><div id="total" style="width:70px"></div></td>';
-            inner += '    <td><div id="total" style="width:70px"></div></td>';
-            inner += '    <td><div id="total" style="width:70px"></div></td>';
+            inner += '    <td><div id="total1" style="width:70px"></div></td>';
+            inner += '    <td><div id="total2" style="width:70px"></div></td>';
             inner += '</tr>';
         
 
@@ -73,7 +73,7 @@ function onClickCancle(trCnt){
 /*
 * @description 사용자 정보 수정
 */
-function onClickUpdate(){ 
+  function onClickUpdate(){ 
   
   var targetBtn = event.target;
   var parentTr = targetBtn.parentNode.parentNode;
@@ -96,6 +96,15 @@ function onClickUpdate(){
     alert("수정 중인 사용자 정보가 있습니다.")
   }
 }
+    function save(){
+      var att = parseInt($('#attendance').val());
+      var task = parseInt($('#task').val());
+      var middle = parseInt($('#middle').val());
+      var final = parseInt($('#final').val());
+
+      var total = att+task+middle+final;
+      $("#total").html(total);
+    }
     </script>
     <head>
         <style>
@@ -167,6 +176,7 @@ button {
     </head>
     <body>
         <input type="button" value="추가" onClick="userAdd()">
+        <input type="button" value="저장" onClick="save()">
         <table id="userList">
             <colgroup>
               <col width = "7%">
