@@ -3,7 +3,23 @@
 <html>
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script>
-
+    //합계는 배열로 해서 추가해주고 저장할때 배열모두 더하고 삭제할때 인덱스로 삭제
+    //합계 학점 배열
+    var arrayCredit=[];
+    //합계 출석 변수
+    var arrayAtt=[];
+    //합계 과제 배열
+    var arrayTask=[];
+    //합계 중간 배열
+    var arrayMiddle=[];
+    //합계 기말 배열
+    var arrayFinal=[];
+    //합계 총점
+    var sumTotal=0;
+    //합계 평균
+    var totalAvg=0;
+    //합계 성적 
+    var totalGrade;
         $('#userList').html('<colgroup>'+
               '<col width = "7%">'+
               '<col width = "7%">'+
@@ -16,45 +32,41 @@
               '<col width = "7%">'+
               '<col width = "7%">'+
               '<col width = "7%">');
-        var baseCamp = 0;
 
 // 추가btn 이벤트
-        const userAdd = ()=> {  
+    const userAdd = ()=> {  
 
-        var trCnt = document.getElementsByTagName('tr').length;
-        var inner = "";
-        console.log(trCnt)
-        if(baseCamp != 0){
-        trCnt = baseCamp;
-        } 
+    var trCnt = document.getElementsByTagName('tr').length;
+    var inner = "";
+    console.log(trCnt)
 
-            //inner += '<tr id = "no'+trCnt+'">';
-            inner += '<tr align ="center">';
-            inner += '    <td>'+ 
-                "<select name = 'combo_box1' style='width:70px'>"+
-                    "<option value='0'>전공</option>"+
-                    "<option value='1'>교양</option>"+
-                "</select>"+'</td>';
-            inner += '    <td>'+
-                '<select name = "combo_box2" style="width:70px">'+
-                    '<option value="0">필수</option>'+
-                    '<option value="1">선택</option>'+
-                '</select></td>';
-            inner += '    <td><input type="text" id="subject" style="width:170px"></td>';
-            inner += '    <td><input type="number" min="1" max"3" id="credit" style="width:70px"></td>';
-            inner += '    <td><input type="number" min="1" max"100" id="attendance" style="width:100px"></td>';
-            inner += '    <td><input type="number" min="1" max"100" id="task" style="width:100px"></td>';
-            inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
-            inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
-            inner += '    <td><div id="total" style="width:70px"></div></td>';
-            inner += '    <td><div id="total1" style="width:70px"></div></td>';
-            inner += '    <td><div id="total2" style="width:70px"></div></td>';
-            inner += '</tr>';
-        
+        //inner += '<tr id = "no'+trCnt+'">';
+        inner += '<tr align ="center">';
+        inner += '    <td>'+ 
+            "<select name = 'combo_box1' style='width:70px'>"+
+                "<option value='0'>전공</option>"+
+                "<option value='1'>교양</option>"+
+            "</select>"+'</td>';
+        inner += '    <td>'+
+            '<select name = "combo_box2" style="width:70px">'+
+                '<option value="0">필수</option>'+
+                '<option value="1">선택</option>'+
+            '</select></td>';
+        inner += '    <td><input type="text" id="subject" style="width:170px"></td>';
+        inner += '    <td><input type="number" min="1" max"3" id="credit" style="width:70px"></td>';
+        inner += '    <td><input type="number" min="1" max"100" id="attendance" style="width:100px"></td>';
+        inner += '    <td><input type="number" min="1" max"100" id="task" style="width:100px"></td>';
+        inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
+        inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
+        inner += '    <td><div id="total" style="width:70px"></div></td>';
+        inner += '    <td><div id="total1" style="width:70px"></div></td>';
+        inner += '    <td><div id="grade" style="width:70px"></div></td>';
+        inner += '</tr>';
+    
 
-        $('#tbHead').after(inner); // 헤더 아래 추가
+    $('#tbHead').after(inner); // 헤더 아래 추가
 
-        }
+    }
 
 /*  @description 사용자 정보 입력 row remove */
 function onClickCancle(trCnt){
@@ -97,13 +109,50 @@ function onClickCancle(trCnt){
   }
 }
     function save(){
+      var credit = parseInt($('#credit').val());
       var att = parseInt($('#attendance').val());
       var task = parseInt($('#task').val());
       var middle = parseInt($('#middle').val());
       var final = parseInt($('#final').val());
-
+      var totalCredit=0;
+      arrayCredit.push(credit);
+      console.log(arrayCredit.length);
+      for (var i=0;i<arrayCredit.length;i++) {
+        console.log(arrayCredit[0]);
+        totalCredit+=arrayCredit[i];
+        console.log(totalCredit);
+      }
+      $('#a').html(totalCredit);
+      //총점
       var total = att+task+middle+final;
       $("#total").html(total);
+      //성적
+      var grade;
+      if(total<=100 && total>=95){
+        grade='A+';
+      }else if(total<95 && total>=90){
+        grade='A0';
+      }else if(total<90 && total>=85){
+        grade='B+';
+      }else if(total<85 && total>=80){
+        grade='B0';
+      }else if(total<80 && total>=75){
+        grade='C+';
+      }else if(total<75 && total>=70){
+        grade='C0';
+      }else if(total<70 && total>=65){
+        grade='D+';
+      }else if(total<65 && total>=60){
+        grade='D0';
+      }else{
+        grade='F'
+      }
+      $('#grade').html(grade);
+      if(grade=='F'){
+        Fgrade=document.getElementById('grade');
+        Fgrade.style.color='red';
+      }
+      //합계
     }
     </script>
     <head>
@@ -211,7 +260,7 @@ button {
             <tfoot>
                 <tr>
                     <td colspan="3">합계</td>
-                    <td></td>
+                    <td><div id='a'></div></td>
                     <td></td>
                     <td></td>
                     <td></td>
