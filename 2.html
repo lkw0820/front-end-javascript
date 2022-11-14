@@ -14,8 +14,8 @@
     var arrayMiddle=[];
     //합계 기말 배열
     var arrayFinal=[];
-    //합계 총점
-    var sumTotal=0;
+    //합계 총점 배열
+    var arrayTotal=[];
     //합계 평균
     var totalAvg=0;
     //합계 성적 
@@ -115,20 +115,64 @@ function onClickCancle(trCnt){
       var middle = parseInt($('#middle').val());
       var final = parseInt($('#final').val());
       var totalCredit=0;
+      //총 성적 색 초기화
+      Tgrade=document.getElementById('totalGrade');
+        Tgrade.style.color='#5F5F5F';
+      //합계 학점
       arrayCredit.push(credit);
+      for(var i=0;i<arrayCredit.length;i++){
+        console.log(arrayCredit[i]);
+      }
       console.log(arrayCredit.length);
       for (var i=0;i<arrayCredit.length;i++) {
-        console.log(arrayCredit[0]);
         totalCredit+=arrayCredit[i];
-        console.log(totalCredit);
+        console.log('totalCredit:'+totalCredit);
       }
-      $('#a').html(totalCredit);
-      //총점
+      $('#totalCredit').html(totalCredit);
+      //합계 출석
+      var totalAtt=0;
+      arrayAtt.push(att);
+      for(var i=0;i<arrayAtt.length;i++){
+        totalAtt+=arrayAtt[i];
+        console.log('totalAtt:'+totalAtt);
+      }
+      $('#totalAtt').html(totalAtt);
+      //힙계 과제
+      var totalTask=0;
+      arrayTask.push(task);
+      for(var i=0;i<arrayTask.length;i++){
+        totalTask+=arrayTask[i];
+        console.log('totalTask:'+totalTask);
+      }
+      $('#totalTask').html(totalTask);
+      //합계 중간
+      var totalMiddle=0;
+      arrayMiddle.push(middle);
+      for(var i=0;i<arrayMiddle.length;i++){
+        totalMiddle+=arrayMiddle[i];
+        console.log('totalMiddle:'+totalMiddle);
+      }
+      $('#totalMiddle').html(totalMiddle);
+      //합계 기말
+      var totalFinal=0;
+      arrayFinal.push(final);
+      for(var i=0;i<arrayFinal.length;i++){
+        totalFinal+=arrayFinal[i];
+        console.log('totalFinal:'+totalFinal)
+      }
+      $('#totalFinal').html(totalFinal);
+      //과목 총점+ 총점 합계
       var total = att+task+middle+final;
       $("#total").html(total);
-      //성적
-      var grade;
-      if(total<=100 && total>=95){
+      var sumTotal=0;
+      arrayTotal.push(total);
+      for(var i=0;i<arrayTotal.length;i++){
+        sumTotal+=arrayTotal[i];
+      }
+      $('#sumTotal').html(sumTotal);
+      //과목 성적
+      function calculateGrade(total, id){
+        if(total<=100 && total>=95){
         grade='A+';
       }else if(total<95 && total>=90){
         grade='A0';
@@ -147,12 +191,20 @@ function onClickCancle(trCnt){
       }else{
         grade='F'
       }
-      $('#grade').html(grade);
+      $('#'+id).html(grade);
       if(grade=='F'){
-        Fgrade=document.getElementById('grade');
-        Fgrade.style.color='red';
+        Fgrade=document.getElementById(id);
+        Fgrade.style.color='#FF0000';
       }
-      //합계
+      }
+      var grade;
+      calculateGrade(total,'grade');
+      
+      //합계 평균
+      totalAvg=sumTotal/arrayTotal.length;
+      $('#totalAvg').html(totalAvg);
+      //합계 성적
+      calculateGrade(totalAvg,'totalGrade');
     }
     </script>
     <head>
@@ -260,14 +312,14 @@ button {
             <tfoot>
                 <tr>
                     <td colspan="3">합계</td>
-                    <td><div id='a'></div></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><div id='totalCredit'></div></td>
+                    <td><div id='totalAtt'></div></td>
+                    <td><div id='totalTask'></div></td>
+                    <td><div id='totalMiddle'></div></td>
+                    <td><div id='totalFinal'></div></td>
+                    <td><div id='sumTotal'></div></td>
+                    <td><div id='totalAvg'></div></td>
+                    <td><div id='totalGrade'></div></td>
                 </tr>
             </tfoot>
           </table>
