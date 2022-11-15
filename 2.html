@@ -20,94 +20,52 @@
     var totalAvg=0;
     //합계 성적 
     var totalGrade;
-        $('#userList').html('<colgroup>'+
-              '<col width = "7%">'+
-              '<col width = "7%">'+
-              '<col width = "18%">'+
-              '<col width = "7%">'+
-              '<col width = "10%">'+
-              '<col width = "10%">'+
-              '<col width = "10%">'+
-              '<col width = "10%">'+
-              '<col width = "7%">'+
-              '<col width = "7%">'+
-              '<col width = "7%">');
+    $('#userList').html('<colgroup>'+
+      '<col width = "7%">'+
+      '<col width = "7%">'+
+      '<col width = "18%">'+
+      '<col width = "7%">'+
+      '<col width = "10%">'+
+      '<col width = "10%">'+
+      '<col width = "10%">'+
+      '<col width = "10%">'+
+      '<col width = "7%">'+
+      '<col width = "7%">'+
+      '<col width = "7%">');
 
 // 추가btn 이벤트
     const userAdd = ()=> {  
-
-    var trCnt = document.getElementsByTagName('tr').length;
+    var trCnt = document.getElementsByTagName('tr').length-1;
+    console.log(trCnt);
     var inner = "";
-    console.log(trCnt)
-
-        //inner += '<tr id = "no'+trCnt+'">';
-        inner += '<tr align ="center">';
-        inner += '    <td>'+ 
-            "<select name = 'combo_box1' style='width:70px'>"+
-                "<option value='0'>전공</option>"+
-                "<option value='1'>교양</option>"+
-            "</select>"+'</td>';
-        inner += '    <td>'+
-            '<select name = "combo_box2" style="width:70px">'+
-                '<option value="0">필수</option>'+
-                '<option value="1">선택</option>'+
-            '</select></td>';
-        inner += '    <td><input type="text" id="subject" style="width:170px"></td>';
-        inner += '    <td><input type="number" min="1" max"3" id="credit" style="width:70px"></td>';
-        inner += '    <td><input type="number" min="1" max"100" id="attendance" style="width:100px"></td>';
-        inner += '    <td><input type="number" min="1" max"100" id="task" style="width:100px"></td>';
-        inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
-        inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
-        inner += '    <td><div id="total" style="width:70px"></div></td>';
-        inner += '    <td><div id="total1" style="width:70px"></div></td>';
-        inner += '    <td><div id="grade" style="width:70px"></div></td>';
-        inner += '</tr>';
-    
+    inner += '<tr align ="center" id="no'+trCnt+'">';
+    inner += '    <td><input type="checkbox" name="ckeck" id="'+trCnt+'">';
+    inner += '    <td>'+ 
+        "<select name = 'combo_box1' style='width:70px'>"+
+            "<option value='0'>전공</option>"+
+            "<option value='1'>교양</option>"+
+        "</select>"+'</td>';
+    inner += '    <td>'+
+        '<select name = "combo_box2" style="width:70px">'+
+            '<option value="0">필수</option>'+
+            '<option value="1">선택</option>'+
+        '</select></td>';
+    inner += '    <td><input type="text" id="subject" style="width:170px"></td>';
+    inner += '    <td><input type="number" min="1" max"3" id="credit" style="width:70px"></td>';
+    inner += '    <td><input type="number" min="1" max"100" id="attendance" style="width:100px"></td>';
+    inner += '    <td><input type="number" min="1" max"100" id="task" style="width:100px"></td>';
+    inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
+    inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
+    inner += '    <td><div id="total" style="width:70px"></div></td>';
+    inner += '    <td><div id="total1" style="width:70px"></div></td>';
+    inner += '    <td><div id="grade" style="width:70px"></div></td>';
+    inner += '</tr>';
 
     $('#tbHead').after(inner); // 헤더 아래 추가
-
     }
 
-/*  @description 사용자 정보 입력 row remove */
-function onClickCancle(trCnt){
-  var row = document.querySelectorAll('.updateRow');
-  $("#no"+trCnt).remove();
-  
-  if(trCnt == 11){
-    $('#no1').show();
-  }
-  if(row.length > 0){
-    $('.updateRow').show();
-    $('tr').removeClass('updateRow');
-  }
-}
 
-/*
-* @description 사용자 정보 수정
-*/
-  function onClickUpdate(){ 
-  
-  var targetBtn = event.target;
-  var parentTr = targetBtn.parentNode.parentNode;
-  var tdNode = parentTr.childNodes;
-  var tdArr = new Array();
 
-  for(var i = 0; i < tdNode.length; i++){
-    tdArr.push(tdNode[i].textContent);    
-  }
-  
-  var row = document.querySelectorAll('.updateRow')
-  if(row.length == 0){
-    parentTr.className = "updateRow";
-    $('.updateRow').hide();
-
-    baseCamp = tdArr[1];
-    userAdd();
-    
-  }else{
-    alert("수정 중인 사용자 정보가 있습니다.")
-  }
-}
     function save(){
       var credit = parseInt($('#credit').val());
       var att = parseInt($('#attendance').val());
@@ -206,6 +164,16 @@ function onClickCancle(trCnt){
       //합계 성적
       calculateGrade(totalAvg,'totalGrade');
     }
+    function subDelete(){
+      var trCnt = document.getElementsByTagName('tr').length-2;
+
+      for (var i=1;i<=trCnt;i++){
+        var checked=$('#'+i).is(':checked');
+        if(checked==true){
+          $('#no'+i).remove();
+        }
+      }
+      }
     </script>
     <head>
         <style>
@@ -276,53 +244,58 @@ button {
         </style>
     </head>
     <body>
+      <div style="float : right;">
         <input type="button" value="추가" onClick="userAdd()">
         <input type="button" value="저장" onClick="save()">
-        <table id="userList">
-            <colgroup>
-              <col width = "7%">
-              <col width = "7%">
-              <col width = "18%">
-              <col width = "7%">
-              <col width = "10%">
-              <col width = "10%">
-              <col width = "10%">
-              <col width = "10%">
-              <col width = "7%">
-              <col width = "7%">
-              <col width = "7%">
-            </colgroup>
-            <thead id ="userThead">
-              <tr id = "tbHead">
-                <th>이수</th>
-                <th>필수</th>
-                <th>과목명</th>
-                <th>학점</th>
-                <th>출석점수</th>
-                <th>과제점수</th>
-                <th>중간고사</th>
-                <th>기말고사</th>
-                <th>총점</th>
-                <th>평균</th>
-                <th>성적</th>
-              </tr>
-            </thead>
-            <tbody id = "userTbody">
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">합계</td>
-                    <td><div id='totalCredit'></div></td>
-                    <td><div id='totalAtt'></div></td>
-                    <td><div id='totalTask'></div></td>
-                    <td><div id='totalMiddle'></div></td>
-                    <td><div id='totalFinal'></div></td>
-                    <td><div id='sumTotal'></div></td>
-                    <td><div id='totalAvg'></div></td>
-                    <td><div id='totalGrade'></div></td>
-                </tr>
-            </tfoot>
-          </table>
+        <input type="button" value="삭제" onClick="subDelete()">
+      </div>
+      <table id="userList">
+          <colgroup>
+            <col width = "6%">
+            <col width = "6%">
+            <col width = "6%">
+            <col width = "18%">
+            <col width = "6%">
+            <col width = "10%">
+            <col width = "10%">
+            <col width = "10%">
+            <col width = "10%">
+            <col width = "6%">
+            <col width = "6%">
+            <col width = "6%">
+          </colgroup>
+          <thead id ="userThead">
+            <tr id = "tbHead">
+              <th>선택</th>
+              <th>이수</th>
+              <th>필수</th>
+              <th>과목명</th>
+              <th>학점</th>
+              <th>출석점수</th>
+              <th>과제점수</th>
+              <th>중간고사</th>
+              <th>기말고사</th>
+              <th>총점</th>
+              <th>평균</th>
+              <th>성적</th>
+            </tr>
+          </thead>
+          <tbody id = "userTbody">
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">합계</td>
+              <td><div id='totalCredit'></div></td>
+              <td><div id='totalAtt'></div></td>
+              <td><div id='totalTask'></div></td>
+              <td><div id='totalMiddle'></div></td>
+              <td><div id='totalFinal'></div></td>
+              <td><div id='sumTotal'></div></td>
+              <td><div id='totalAvg'></div></td>
+              <td><div id='totalGrade'></div></td>
+            </tr>
+          </tfoot>
+      </table>
     </body>
 
 </html>
