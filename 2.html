@@ -64,7 +64,12 @@
     $('#tbHead').after(inner); // 헤더 아래 추가
     }
 
-
+    function a(a,t){
+        for (var i=0;i<a.length;i++){
+          t+=a[i];
+        }
+        return t;
+      }
 
     function save(){
       var credit = parseInt($('#credit').val());
@@ -114,11 +119,15 @@
       //합계 기말
       var totalFinal=0;
       arrayFinal.push(final);
-      for(var i=0;i<arrayFinal.length;i++){
+      /*for(var i=0;i<arrayFinal.length;i++){
         totalFinal+=arrayFinal[i];
         console.log('totalFinal:'+totalFinal)
-      }
+      }*/
+      
+      totalFinal=a(arrayFinal,totalFinal);
+      console.log('totalFinal:'+totalFinal);
       $('#totalFinal').html(totalFinal);
+      
       //과목 총점+ 총점 합계
       var total = att+task+middle+final;
       $("#total").html(total);
@@ -164,12 +173,14 @@
       //합계 성적
       calculateGrade(totalAvg,'totalGrade');
     }
+    
     function subDelete(){
       var trCnt = document.getElementsByTagName('tr').length-2;
 
       for (var i=1;i<=trCnt;i++){
         var checked=$('#'+i).is(':checked');
         if(checked==true){
+
           $('#no'+i).remove();
         }
       }
