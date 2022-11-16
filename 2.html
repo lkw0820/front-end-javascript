@@ -64,12 +64,39 @@
     $('#tbHead').after(inner); // 헤더 아래 추가
     }
 
+    function calculateGrade(total, id){
+        if(total<=100 && total>=95){
+        grade='A+';
+        }else if(total<95 && total>=90){
+          grade='A0';
+        }else if(total<90 && total>=85){
+          grade='B+';
+        }else if(total<85 && total>=80){
+          grade='B0';
+        }else if(total<80 && total>=75){
+          grade='C+';
+        }else if(total<75 && total>=70){
+          grade='C0';
+        }else if(total<70 && total>=65){
+          grade='D+';
+        }else if(total<65 && total>=60){
+          grade='D0';
+        }else{
+          grade='F'
+        }
+        $('#'+id).html(grade);
+        if(grade=='F'){
+          Fgrade=document.getElementById(id);
+          Fgrade.style.color='#FF0000';
+        }
+      }
+
     function a(a,t){
-        for (var i=0;i<a.length;i++){
-          t+=a[i];
+        for (var h=0;h<a.length;h++){
+          t+=a[h];
         }
         return t;
-      }
+      };
 
     function save(){
       var credit = parseInt($('#credit').val());
@@ -138,32 +165,7 @@
       }
       $('#sumTotal').html(sumTotal);
       //과목 성적
-      function calculateGrade(total, id){
-        if(total<=100 && total>=95){
-        grade='A+';
-      }else if(total<95 && total>=90){
-        grade='A0';
-      }else if(total<90 && total>=85){
-        grade='B+';
-      }else if(total<85 && total>=80){
-        grade='B0';
-      }else if(total<80 && total>=75){
-        grade='C+';
-      }else if(total<75 && total>=70){
-        grade='C0';
-      }else if(total<70 && total>=65){
-        grade='D+';
-      }else if(total<65 && total>=60){
-        grade='D0';
-      }else{
-        grade='F'
-      }
-      $('#'+id).html(grade);
-      if(grade=='F'){
-        Fgrade=document.getElementById(id);
-        Fgrade.style.color='#FF0000';
-      }
-      }
+      
       var grade;
       calculateGrade(total,'grade');
       
@@ -172,31 +174,70 @@
       $('#totalAvg').html(totalAvg);
       //합계 성적
       calculateGrade(totalAvg,'totalGrade');
-    }
+    };
     
     function subDelete(){
+      function b(arr,tot,i){
+        for(var j=0;j<arr.length;j++){
+          if(j==i-1){
+            arr.splice(j,1);
+            //j--;
+          }
+        }
+        for (var j=0;j<arr.length;j++){
+          tot+=arr[j];
+        }
+        return tot;
+      };
+      console.log()
       var trCnt = document.getElementsByTagName('tr').length-2;
-      for(var i=0;i<arrayCredit.length;i++){
-        console.log(arrayCredit[i]);
-      }
       for (var i=1;i<=trCnt;i++){
         var checked=$('#'+i).is(':checked');
         if(checked==true){
-          for(var j=0;j<arrayCredit.length;j++){
+          //학점
+          /*for(var j=0;j<arrayCredit.length;j++){
             if(j==i-1){
               arrayCredit.splice(j,1);
-              j--;
+              //j--;
             }
           }
-          for(var k=0;k<arrayCredit.length;k++){
-            console.log(arrayCredit[k]);
-          }
-          var totatlCredit=parseInt(a(arrayCredit,totalCredit));
-          $('#totalCredit').html(totatlCredit);
+          var totatlCredit=0;
+          for (var j=0;j<arrayCredit.length;j++){
+          totatlCredit+=arrayCredit[j];
+          }*/
+          //학점
+          var totalCredit=0;
+          var aC = b(arrayCredit,totalCredit,i);
+          $('#totalCredit').html(aC);
+          //출석
+          var totalAtt=0;
+          var aA = b(arrayAtt,totalAtt,i);
+          $('#totalAtt').html(aA);
+          //과제
+          var totalTask=0;
+          var aT = b(arrayTask,totalTask,i);
+          $('#totalTask').html(aT);
+          //중간
+          var totalMiddle=0;
+          var aM = b(arrayMiddle,totalMiddle,i);
+          $('#totalMiddle').html(aM);
+          //기말
+          var totalFinal=0;
+          var aF = b(arrayFinal,totalFinal,i);
+          $('#totalFinal').html(aF);
+          //총
+          var sumTotal=0;
+          var aST = b(arrayTotal,sumTotal,i);
+          $('#sumTotal').html(aST);
+          //평균
+          var afterAvg=aST/trCnt;
+          $('#totalAvg').html(afterAvg);
+          //성적
+          calculateGrade(afterAvg,'totalGrade');
           $('#no'+i).remove();
         }
       }
-      }
+      };
     </script>
     <head>
         <style>
