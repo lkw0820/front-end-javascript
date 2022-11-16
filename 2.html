@@ -176,11 +176,23 @@
     
     function subDelete(){
       var trCnt = document.getElementsByTagName('tr').length-2;
-
+      for(var i=0;i<arrayCredit.length;i++){
+        console.log(arrayCredit[i]);
+      }
       for (var i=1;i<=trCnt;i++){
         var checked=$('#'+i).is(':checked');
         if(checked==true){
-
+          for(var j=0;j<arrayCredit.length;j++){
+            if(j==i-1){
+              arrayCredit.splice(j,1);
+              j--;
+            }
+          }
+          for(var k=0;k<arrayCredit.length;k++){
+            console.log(arrayCredit[k]);
+          }
+          var totatlCredit=parseInt(a(arrayCredit,totalCredit));
+          $('#totalCredit').html(totatlCredit);
           $('#no'+i).remove();
         }
       }
