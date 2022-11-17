@@ -61,7 +61,8 @@
     inner += '    <td><div id="grade" style="width:70px"></div></td>';
     inner += '</tr>';
 
-    $('#tbHead').after(inner); // 헤더 아래 추가
+    //$('#tbHead').after(inner); // 헤더 아래 추가
+    $('#tbFoot').before(inner);
     }
 
     function calculateGrade(total, id){
@@ -104,11 +105,27 @@
       var task = parseInt($('#task').val());
       var middle = parseInt($('#middle').val());
       var final = parseInt($('#final').val());
-      var totalCredit=0;
+      
+      //입력 시 빈칸이 있으면 예외처리
+      if(isNaN(credit) || isNaN(att) || isNaN(task) || isNaN(middle) || isNaN(final)){
+        alert('입력오류');
+        // 초기화화
+        var nullC = document.getElementById('credit');
+        nullC.value = null;
+        var nullA = document.getElementById('attendance');
+        nullA.value = null;
+        var nullT = document.getElementById('task');
+        nullT.value = null;
+        var nullM = document.getElementById('middle');
+        nullM.value = null;
+        var nullF = document.getElementById('final');
+        nullF.value = null;
+      }
       //총 성적 색 초기화
       Tgrade=document.getElementById('totalGrade');
         Tgrade.style.color='#5F5F5F';
       //합계 학점
+      var totalCredit=0;
       arrayCredit.push(credit);
       for(var i=0;i<arrayCredit.length;i++){
         console.log(arrayCredit[i]);
@@ -347,7 +364,7 @@ button {
           <tbody id = "userTbody">
           </tbody>
           <tfoot>
-            <tr>
+            <tr id="tbFoot">
               <td colspan="4">합계</td>
               <td><div id='totalCredit'></div></td>
               <td><div id='totalAtt'></div></td>
