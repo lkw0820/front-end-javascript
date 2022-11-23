@@ -36,33 +36,37 @@
 // 추가btn 이벤트
     const userAdd = ()=> {  
     var trCnt = document.getElementsByTagName('tr').length-1;
-    console.log(trCnt);
-    var inner = "";
-    inner += '<tr align ="center" id="no'+trCnt+'">';
-    inner += '    <td><input type="checkbox" name="ckeck" id="'+trCnt+'">';
-    inner += '    <td>'+ 
-        "<select name = 'combo_box1' style='width:70px'>"+
-            "<option value='0'>전공</option>"+
-            "<option value='1'>교양</option>"+
-        "</select>"+'</td>';
-    inner += '    <td>'+
-        '<select name = "combo_box2" style="width:70px">'+
-            '<option value="0">필수</option>'+
-            '<option value="1">선택</option>'+
-        '</select></td>';
-    inner += '    <td><input type="text" id="subject" style="width:170px"></td>';
-    inner += '    <td><input type="number" min="1" max"3" id="credit" style="width:70px"></td>';
-    inner += '    <td><input type="number" min="1" max"100" id="attendance" style="width:100px"></td>';
-    inner += '    <td><input type="number" min="1" max"100" id="task" style="width:100px"></td>';
-    inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
-    inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
-    inner += '    <td><div id="total" style="width:70px"></div></td>';
-    inner += '    <td><div id="total1" style="width:70px"></div></td>';
-    inner += '    <td><div id="grade" style="width:70px"></div></td>';
-    inner += '</tr>';
+      console.log(trCnt);
+      var inner = "";
+      inner += '<tr align ="center" id="no'+trCnt+'">';
+      inner += '    <td><input type="checkbox" name="ckeck" id="'+trCnt+'">';
+      inner += '    <td>'+ 
+          "<select name = 'combo_box1' style='width:70px'>"+
+              "<option value='0'>전공</option>"+
+              "<option value='1'>교양</option>"+
+          "</select>"+'</td>';
+      inner += '    <td>'+
+          '<select name = "combo_box2" style="width:70px">'+
+              '<option value="0">필수</option>'+
+              '<option value="1">선택</option>'+
+          '</select></td>';
+      inner += '    <td><input type="text" id="subject" style="width:170px"></td>';
+      inner += '    <td><input type="number" min="1" max"3" id="credit" style="width:70px"></td>';
+      inner += '    <td><input type="number" min="1" max"100" id="attendance" style="width:100px"></td>';
+      inner += '    <td><input type="number" min="1" max"100" id="task" style="width:100px"></td>';
+      inner += '    <td><input type="number" min="1" max"100" id="middle" style="width:100px"></td>';
+      inner += '    <td><input type="number" min="1" max"100" id="final" style="width:100px"></td>';
+      inner += '    <td><div id="total" style="width:70px"></div></td>';
+      inner += '    <td><div id="total1" style="width:70px"></div></td>';
+      inner += '    <td><div id="grade" style="width:70px"></div></td>';
+      inner += '</tr>';
 
-    $('#tbHead').after(inner); // 헤더 아래 추가
-    //$('#tbFoot').before(inner);
+      $('#tbHead').after(inner); // 헤더 아래 추가
+      //$('#tbFoot').before(inner);
+      //버튼 비활성화 -> 저장하면 다시 활성화
+      $('#add').attr("disabled",true);
+      //저장 버튼 활성화
+      $('#save').attr("disabled",false);
     }
 
     function calculateGrade(total, id){
@@ -208,6 +212,10 @@
           $('#totalAvg').html(totalAvg);
           //합계 성적
           calculateGrade(totalAvg,'totalGrade');
+          //추가 버튼 활성화
+          $('#add').attr("disabled",false);
+          //저장 버튼 비활성화
+          $('#save').attr("disabled",true);
         }
       }
     };
@@ -273,7 +281,7 @@
           $('#no'+i).remove();
         }
       }
-      };
+    };
     </script>
     <head>
         <style>
@@ -345,9 +353,9 @@ button {
     </head>
     <body>
       <div style="float : right;">
-        <input type="button" value="추가" onClick="userAdd()">
-        <input type="button" value="저장" onClick="save()">
-        <input type="button" value="삭제" onClick="subDelete()">
+        <input type="button" value="추가" id="add" onClick="userAdd()">
+        <input type="button" value="저장" id="save" onClick="save()">
+        <input type="button" value="삭제" id="delete" onClick="subDelete()">
       </div>
       <table id="userList">
           <colgroup>
