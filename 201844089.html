@@ -69,6 +69,11 @@ font-weight : 600;
 }  
 </style>
   <head>
+    <div style="text-align : center;">
+      <p><h1>front-end 과제</h1></p> 
+    <p>201844089 이기원</p>
+    </div>
+    
   </head>
   <script>
     //합계는 배열로 해서 추가해주고 저장할때 배열모두 더하고 삭제할때 인덱스로 삭제
@@ -189,7 +194,7 @@ font-weight : 600;
       Tgrade.style.color='#5F5F5F';
       //과목 총점
       var total = att+task+middle+final;
-      if(total>100 || total<0){
+      if(total>100 || total<0){ // 점수가 100점을 넘거나 0점보다 작을때 예외처리
         alert("입력오류 값이 0보다 작거나 100보다 큽니다")
           //arrayCredit.pop();
           var totalCredit;
